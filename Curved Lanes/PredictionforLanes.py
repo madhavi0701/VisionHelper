@@ -125,10 +125,12 @@ class Predictions():
             # frame 
             
             total_points= left_x + right_x 
-            # correct = ["Good Lane Maintainance"," Continue straight"]
-            #correct = "Good Lane Maintainance Continue straight"
+            correct = ["Good Lane Maintainance"," Continue straight"]
+            # correct = "Good Lane Maintainance Continue straight"
             left_turn = "Left turn is approaching Please start turning left"
             right_turn = "Right turn is approaching Please start turning right"
+            left_turnt = ["Left turn is approaching"," Please start turning left"]
+            right_turnt = ["Right turn is approaching ","Please start turning right"]
             # if relative change in percentage of points is < 10% then 
             # going fine 
             try:
@@ -137,35 +139,35 @@ class Predictions():
             except:
                 left_perc = 50
                 right_perc = 50
-            # if(abs(left_perc - right_perc) < 25):
-            #     # speak(correct)
-            #     cv.putText(frame,correct[0],(40,40),5,1.1,(100,255,10),2)
-            #     cv.putText(frame,correct[1],(40,70),5,1.1,(100,255,10),2)
+            if(abs(left_perc - right_perc) < 25):
+                # speak(correct)
+                cv.putText(frame,correct[0],(40,40),5,1.1,(100,255,10),2)
+                cv.putText(frame,correct[1],(40,70),5,1.1,(100,255,10),2)
 
                 
-            # else:
-            #     if(left_perc > right_perc): # more than 25% relative change 
-            #         # means a approximately a right turn is approaching 
-            #         cv.putText(frame,right_turn[0],(40,40),5,1.1,(100,10,255),2)
-            #         cv.putText(frame,right_turn[1],(40,70),5,1.1,(100,10,255),2)
+            else:
+                if(left_perc > right_perc): # more than 25% relative change 
+                    # means a approximately a right turn is approaching 
+                    cv.putText(frame,right_turn[0],(40,40),5,1.1,(100,10,255),2)
+                    cv.putText(frame,right_turn[1],(40,70),5,1.1,(100,10,255),2)
 
-            #         speak(right_turn)
-            #     else:
-            #         cv.putText(frame,left_turn[0],(40,40),5,1.1,(100,10,255),2)
-            #         cv.putText(frame,left_turn[1],(40,70),5,1.1,(100,10,255),2)
+                    # speak(right_turn)
+                else:
+                    cv.putText(frame,left_turn[0],(40,40),5,1.1,(100,10,255),2)
+                    cv.putText(frame,left_turn[1],(40,70),5,1.1,(100,10,255),2)
 
-            #         speak(left_turn)
+                    # speak(left_turn)
             if(left_perc > right_perc): # more than 25% relative change 
                 # means a approximately a right turn is approaching 
-                cv.putText(frame,right_turn[0],(40,40),5,1.1,(100,10,255),2)
-                cv.putText(frame,right_turn[1],(40,70),5,1.1,(100,10,255),2)
+                cv.putText(frame,right_turnt[0],(40,40),5,1.1,(100,10,255),2)
+                cv.putText(frame,right_turnt[1],(40,70),5,1.1,(100,10,255),2)
 
-                speak(right_turn)
+                # speak(right_turn)
             else:
-                cv.putText(frame,left_turn[0],(40,40),5,1.1,(100,10,255),2)
-                cv.putText(frame,left_turn[1],(40,70),5,1.1,(100,10,255),2)
+                cv.putText(frame,left_turnt[0],(40,40),5,1.1,(100,10,255),2)
+                cv.putText(frame,left_turnt[1],(40,70),5,1.1,(100,10,255),2)
 
-                speak(left_turn)
+                # speak(left_turn)
             # return the frame with the outputs 
             # to-do : output with sound 
             return frame 
@@ -177,5 +179,3 @@ def speak(text):
         tts.save(filename)
         playsound.playsound(filename)
         os.remove(filename)
-
-
